@@ -20,6 +20,17 @@
         exit(); //funkcija ekvivalentna exit() funkciji
     }
 
+    if(isset($_POST['id_predmeta']) && isset($_POST['predmet']) && isset($_POST['katedra']) && isset($_POST['sala']) && isset($_POST['datum'])){
+        $id_forma = $_POST['id_predmeta'];
+        $predmet_forma = $_POST['predmet'];
+        $katedra_forma = $_POST['katedra'];
+        $sala_forma = $_POST['sala'];
+        $datum_forma = $_POST['datum'];
+        $prijava = new Prijava($id_forma, $predmet_forma, $katedra_forma, $sala_forma, $datum_forma);
+        $result = Prijava::update($prijava, $conn);
+        header('Location: home.php');
+        exit();
+    }
 
 ?>
 
@@ -181,21 +192,21 @@
         $('input[name="id_predmeta"]').on('change', function() {
             $('#btn-izmeni').prop('disabled', false);
             $('#btn-obrisi').prop('disabled', false);
-
             let selectedRow = $(this).closest('tr');
-
             let predmet = selectedRow.find('td:eq(0)').text();
             let katedra = selectedRow.find('td:eq(1)').text();
             let sala = selectedRow.find('td:eq(2)').text();
             let datum = selectedRow.find('td:eq(3)').text();
+            
+             let id = $(this).val();
 
-            // let id = $(this).val();
+            $('#id_predmeta').val(id);
+            $('#predmet').val(predmet);
+            $('#katedra').val(katedra);
+            $('#sala').val(sala);
+            $('#datum').val(datum);
 
-            // $('#id_predmeta').val(id);
-            // $('#predmet').val(predmet);
-            // $('#katedra').val(katedra);
-            // $('#sala').val(sala);
-            // $('#datum').val(datum);
+           
         });
     </script>
 </body>
